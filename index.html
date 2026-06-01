@@ -215,16 +215,6 @@ td{padding:12px 14px;font-size:13px;font-family:var(--mono)}
 .stars{color:var(--green);font-size:13px;letter-spacing:1px;margin-bottom:8px}
 .rev-text{font-size:13px;color:var(--muted2);line-height:1.6}
 
-/* ── GUIDES ── */
-.guides-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:28px}
-.guide-card{background:var(--card2);border:1px solid var(--border2);border-radius:var(--r2);padding:18px;display:flex;align-items:center;gap:14px;transition:all .3s;cursor:pointer}
-.guide-card:hover{border-color:var(--border);background:var(--glow2)}
-.guide-ico{width:42px;height:42px;background:var(--glow);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.guide-info{flex:1}
-.guide-info h3{font-size:13px;font-weight:700;margin-bottom:3px}
-.guide-info p{font-size:12px;color:var(--muted2)}
-.guide-dl{font-size:18px;color:var(--green);flex-shrink:0}
-
 /* ── FORM ── */
 .form-wrap{background:var(--card2);border:1px solid var(--border);border-radius:var(--r2);padding:26px 20px;max-width:480px;margin:0 auto}
 .form-wrap h2{text-align:center;font-size:22px;font-weight:800;margin-bottom:5px}
@@ -619,13 +609,24 @@ const reviews=[
   {name:'Тимур Б.',badge:'✅ 3 года с Fund-Next',city:'📍 Алматы, Казахстан',stars:'★★★★★',text:'"Торгую DOGE и XRP. Комиссии минимальные, исполнение мгновенное. Поддержка на русском — это важно."',img:'https://randomuser.me/api/portraits/men/55.jpg'},
   {name:'Марина К.',badge:'✅ PRO счёт',city:'📍 Краснодар',stars:'★★★★★',text:'"Мне нравится что всё просто и понятно. Зарегистрировалась за 5 минут, первый вывод прошёл за 12 часов."',img:'https://randomuser.me/api/portraits/women/68.jpg'},
 ];
-const rg=document.getElementById('revGrid');
-if(rg){rg.innerHTML=reviews.map(r=>`<div class="rev-card"><div class="rev-top"><img class="rev-ava" src="${r.img}" alt="${r.name}" onerror="this.style.opacity=0"><div><div class="rev-name">${r.name}</div><div class="rev-badge">${r.badge}</div><div class="rev-city">${r.city}</div></div></div><div class="stars">${r.stars}</div><p class="rev-text">${r.text}</p></div>`).join('');}
+const rg = document.getElementById('revGrid');
+if(rg){
+  rg.innerHTML = reviews.map(r => `
+    <div class="rev-card">
+      <div class="rev-top">
+        <div class="rev-ava" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, var(--green), var(--green-dim)); color: #000; font-weight: 800; font-size: 16px;">${r.name.charAt(0)}${r.name.split(' ')[1]?.charAt(0) || ''}</div>
+        <div>
+          <div class="rev-name">${r.name}</div>
+          <div class="rev-badge">${r.badge}</div>
+          <div class="rev-city">${r.city}</div>
+        </div>
+      </div>
+      <div class="stars">${r.stars}</div>
+      <p class="rev-text">${r.text}</p>
+    </div>
+  `).join('');
+}
 
-// ── GUIDES ──
-document.querySelectorAll('.guide-card').forEach(card=>{
-  card.addEventListener('click',()=>{if(typeof fbq==='function')fbq('track','Download');alert('✅ '+card.querySelector('h3').textContent+'\nВставьте реальную ссылку на PDF.');});
-});
 
 // ── FORM ──
 document.getElementById('regForm').addEventListener('submit',()=>{if(typeof fbq==='function')fbq('track','Lead');});
